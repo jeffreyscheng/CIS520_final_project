@@ -26,17 +26,17 @@ function features = sparse_PCA(X, k)
 end
 
 function [Y_hat] = predict_labels_jank(training_bag, training_labels, X_test_bag, k)
-%     reduced_train_bag = full(sparse_PCA(training_bag, k));
+%     reduced_train_bag = sparse(sparse_PCA(training_bag, k));
     cost = [0 3 1 2 3; 4 0 2 3 2; 1 2 0 2 1; 2 1 2 0 2; 2 2 2 1 0];
 %     ensemble_model = fitcnb(training_bag,training_labels,'Cost',cost);
-    svm_model = train(full(training_labels), sparse(training_bag));
+    svm_model = train(full(training_labels), sparse(training_bag),'Cost',cost);
 %     ensemble_model = fitcnb(reduced_train_bag,training_labels,'Cost',cost);
 %     ensemble_model = fitensemble(reduced_train_bag,training_labels,'AdaBoostM2',500,'tree','Cost',cost);
 %     SVM_model = fitensemble(reduced_train_bag,training_labels,'AdaBoostM2',10,'tree');
     disp('finished training');
 %     reduced_test_bag = full(sparse_PCA(X_test_bag, k));
 %     Y_hat = predict(ensemble_model, reduced_test_bag);
-    Y_hat = predict(ones(size(X_test_bag,1),1), sparse(X_test_bag), svm_model)
+    Y_hat = predict(ones(size(X_test_bag,1),1), sparse(X_test_bag), svm_model);
 % Inputs:   X_test_bag     nx9995 bag of words features
 %           test_raw      nx1 cells containing all the raw tweets in text
 
