@@ -25,16 +25,19 @@ end
 
 function better_bag = get_good_words(bag)
     global good_words
-    better_bag = bag(:, good_words);
+%     better_bag = bag(:, good_words);
+    better_bag = bag;
 end
 
 function [Y_hat] = predict_labels_jank(training_bag, training_labels, X_test_bag)
 
     reduced_train_bag = get_good_words(training_bag);
     cost = [0 3 1 2 3; 4 0 2 3 2; 1 2 0 2 1; 2 1 2 0 2; 2 2 2 1 0];
-    svm_model = train(full(training_labels), reduced_train_bag,'Cost',cost);
+    svm_model = train(full(training_labels), reduced_train_bag,'-s 0 -c 0.5');
     disp('finished training');
     reduced_test_bag = get_good_words(X_test_bag);
+    lol = predict(ones(size(X_test_bag,1),1), reduced_test_bag, svm_model);
+    disp(size(lol));
     Y_hat = predict(ones(size(X_test_bag,1),1), reduced_test_bag, svm_model);
 % Inputs:   X_test_bag     nx9995 bag of words features
 %           test_raw      nx1 cells containing all the raw tweets in text
