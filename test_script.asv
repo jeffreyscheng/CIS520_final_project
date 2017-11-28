@@ -1,0 +1,29 @@
+load('train.mat')
+load('validation.mat')
+load('vocabulary.mat')
+
+cost = [][]
+
+
+trainingX = X_train_bag(1:15000,:);
+trainingY = Y_train(1:15000,:);
+validationX = X_train_bag(15001:18092,:);
+validationY = Y_train(15001:18092,:);
+
+predictions = predict_labels_jank(trainingX, trainingY, validationX);
+score = performance_measure(predictions, validationY)
+
+function [Y_hat] = predict_labels_jank(training_bag, training_labels, X_test_bag)
+    % nonsparse_training = full(training_bag);
+    % size(nonsparse_training)
+    % nonsparse_training(1:5)
+    SVM_model = fitcknn(training_bag, training_labels);
+    Y_hat = predict(SVM_model, X_test_bag);
+
+% Inputs:   X_test_bag     nx9995 bag of words features
+%           test_raw      nx1 cells containing all the raw tweets in text
+
+
+% Outputs:  Y_hat           nx1 predicted labels (1 for joy, 2 for sadness, 3 for surprise, 4 for anger, 5 for fear)
+
+end
