@@ -2,34 +2,44 @@ load('train.mat')
 load('validation.mat')
 load('vocabulary.mat')
 
-trainingX = X_train_bag(1:15000,:);
-trainingY = Y_train(1:15000,:);
-validationX = X_train_bag(15001:18092,:);
-validationY = Y_train(15001:18092,:);
+t = cputime;
+[trainInd,valInd,testInd] = dividerand(18092,0.5,0.1,0.0);
+
+trainingX = X_train_bag(trainInd,:);
+trainingY = Y_train(trainInd,:);
+validationX = X_train_bag(valInd,:);
+validationY = Y_train(valInd,:);
 
 predictions = predict_labels_jank(trainingX, trainingY, validationX);
 score = performance_measure(predictions, validationY)
-
+e = cputime - t
 function features = sparse_PCA(X)
-    [~,~,PC] = svds(X,1000);
-    mu = mean(X);
-    S = sparse(size(X,1),1000);
-    for i=1:size(X,1)
-        S(i,:) = (X(i,:)-mu)*PC;
-    end
-    features = S;
+%     [~,~,PC] = svds(X,100);
+%     mu = mean(X);
+%     S = sparse(size(X,1),100);
+%     for i=1:size(X,1)
+%         S(i,:) = (X(i,:)-mu)*PC;
+%     end
+%     features = S;
+%     2
+
+% 0.1, 0.1, 1000 -> 1.6306
+% 0.3, 0.1, 500 -> 1.7690
+    [U,S,V] = svds(X, 100);
+    features = U * S;
 end
 
 function [Y_hat] = predict_labels_jank(training_bag, training_labels, X_test_bag)
     % nonsparse_training = full(training_bag);
     % size(nonsparse_training)
     % nonsparse_training(1:5)
-    reduced_train_bag = sparse_PCA(training_bag);
-    % reduced_train_bag = reduced_train_bag(:,1:1000);
+    reduced_train_bag = full(sparse_PCA(training_bag))
+    % reduced_train_bag = reduced_train_bag(:,1:1000)
     cost = [0,3,1,2,3;4,0,2,3,2;1,2,0,2,1;2,1,2,0,2;2,2,2,1,0];
-    SVM_model = fitctree(reduced_train_bag,training_labels,'Cost',cost);
+    SVM_model = fitcecoc(reduced_train_bag,training_labels,'Cost',cost);
     % SVM_model.costs = cost;
-    reduced_test_bag = sparse_PCA(X_test_bag);
+    disp('finished training');
+    reduced_test_bag = full(sparse_PCA(X_test_bag));
     % reduced_test_bag = reduced_test_bag(:,1:1000);
     Y_hat = predict(SVM_model, reduced_test_bag);
 
