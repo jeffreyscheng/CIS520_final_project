@@ -1,8 +1,32 @@
+function better_bag = get_good_words(bag)
+    global good_words
+    better_bag = bag(:, good_words);
+%     better_bag = bag;
+end
+
+
 function [Y_hat] = predict_labels(X_test_bag, test_raw)
     load('train.mat')
+    load('validation.mat')
     load('vocabulary.mat')
-    SVM_model = fitcsvm(full(X_train_bag), Y_train);
-    Y_hat = predict(SVM_model, X_test_bag)
+    addpath('liblinear-2.11/windows/')
+
+    [trainInd,valInd,testInd] = dividerand(18092,0.99,0.1,0.0);
+
+    trainingX = X_train_bag(trainInd,:);
+    trainingY = Y_train(trainInd,:);
+    validationX = X_train_bag(valInd,:);
+    validationY = Y_train(valInd,:);
+
+    total_word_usage = sum(X_train_bag);
+    size(total_word_usage)
+    global good_words
+    good_words = total_word_usage > 1;
+
+    predictions = predict_labels_jank(trainingX, trainingY, validationX);
+    % size(predictions)
+    % size(validationY)
+    score = performance_measure(full(predictions), full(validationY))
 
 % Inputs:   X_test_bag     nx9995 bag of words features
 %           test_raw      nx1 cells containing all the raw tweets in text
