@@ -29,11 +29,6 @@ score = performance_measure(full(predictions), full(validationY))
 %     sum(badpred == i)
 % end
 
-function features = sparse_PCA(X, k)
-    [U,S,V] = svds(X, k);
-    features = U * S;
-end
-
 % I thought that excluding low-frequency words would reduce overfitting
 % but now I think that the L1 regularization mostly takes care of this
 function better_bag = get_good_words(bag)
