@@ -21,6 +21,10 @@ Models:
         > test_raw = the raw tweet data.
     - We load in the training data and train using a naive bayes model.
     - Y_hat (the output) is the predicted labels of the test data passed in
+    
+    - An example of this is within the test_script_nb.m script. To run this, simply just run it.
+    - This script randomizes the train set to come up with a test set and a train set,
+    - It then trains the model and predicts for the test set and prints the score
 
 2) Logistic Regression:
     - This is based in predict_labels.m.
@@ -30,6 +34,10 @@ Models:
     - We load in the training data and train using a logistic model with cost optimization.
     - Y_hat (the output) is the predicted labels of the test data passed in
 
+    - An example of this is within the test_script.m script. To run this, simply just run it.
+    - This script randomizes the train set to come up with a test set and a train set,
+    - It then trains the model and predicts for the test set and prints the score
+
 3) K-Nearest Neighbors:
     - This is based in predict_labels_knn.m.
     - To call this function, call predict_labels_knn(X_test_bag, test_raw) where
@@ -37,6 +45,10 @@ Models:
         > test_raw = the raw tweet data.
     - We load in the training data and train using a K-Nearest Neighbors model with K = 15.
     - Y_hat (the output) is the predicted labels of the test data passed in
+
+    - An example of this is within the test_script_knn.m script. To run this, simply just run it.
+    - This script randomizes the train set to come up with a test set and a train set,
+    - It then trains the model and predicts for the test set and prints the score
 
 File Description:
 1) predict_labels.m
