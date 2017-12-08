@@ -13,6 +13,30 @@ We will have a leaderboard that displays your results and ranks based on the ave
 
 For your final evaluation we will test your algorithm on a test set of 9310 examples.
 
+Models:
+1) Naive Bayes:
+    - This is based in predict_labels_nb.m.
+    - To call this function, call predict_labels_nb(X_test_bag, test_raw) where
+        > X_test_bag = the test dataset.
+        > test_raw = the raw tweet data.
+    - We load in the training data and train using a naive bayes model.
+    - Y_hat (the output) is the predicted labels of the test data passed in
+
+2) Logistic Regression:
+    - This is based in predict_labels.m.
+    - To call this function, call predict_labels(X_test_bag, test_raw) where
+        > X_test_bag = the test dataset.
+        > test_raw = the raw tweet data.
+    - We load in the training data and train using a logistic model with cost optimization.
+    - Y_hat (the output) is the predicted labels of the test data passed in
+
+3) K-Nearest Neighbors:
+    - This is based in predict_labels_knn.m.
+    - To call this function, call predict_labels_knn(X_test_bag, test_raw) where
+        > X_test_bag = the test dataset.
+        > test_raw = the raw tweet data.
+    - We load in the training data and train using a K-Nearest Neighbors model with K = 15.
+    - Y_hat (the output) is the predicted labels of the test data passed in
 
 File Description:
 1) predict_labels.m
