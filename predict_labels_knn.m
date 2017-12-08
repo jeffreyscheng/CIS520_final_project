@@ -4,7 +4,7 @@ function [Y_hat] = predict_labels_knn(X_test_bag, test_raw)
     load('vocabulary.mat')
     %addpath('liblinear-2.11/matlab/')
     
-    k = 5;
+    k = 15;
     cost = [0 3 1 2 3; 4 0 2 3 2; 1 2 0 2 1; 2 1 2 0 2; 2 2 2 1 0];
     
     knn_model = fitcknn(X_train_bag, Y_train, 'NumNeighbors',k, 'Cost', cost);
