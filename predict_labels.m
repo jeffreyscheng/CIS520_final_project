@@ -2,7 +2,7 @@ function [Y_hat] = predict_labels(X_test_bag, test_raw)
     load('train.mat')
     load('validation.mat')
     load('vocabulary.mat')
-    addpath('liblinear-2.11/matlab/')
+    addpath('liblinear-2.11/windows/')
 
     reduced_train_bag = X_train_bag;
     cost = [0 3 1 2 3; 4 0 2 3 2; 1 2 0 2 1; 2 1 2 0 2; 2 2 2 1 0];

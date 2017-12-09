@@ -1,18 +1,7 @@
 The following is a description of the files:                                                                     
 
-You will be given tweets and your job is to correctly classify them as joy (1), sadness (2), surprise (3), anger (4) and fear (5). We will use a cost-sensitive loss function to calculate the cost of your prediction. You can use the provided performance_measure.m file to calculate the cost of your prediction.
-
-
-You will get:
-Training:
-18092 training examples with labels
-9098 validation examples without labels
-
-
-We will have a leaderboard that displays your results and ranks based on the average cost of prediction on the 9098 validation examples without labels.
-
-For your final evaluation we will test your algorithm on a test set of 9310 examples.
-
+Below is a description of the models. For each model, I describe what files it is contained in
+and how to run our testscript.
 Models:
 1) Naive Bayes:
     - This is based in predict_labels_nb.m.
@@ -22,7 +11,7 @@ Models:
     - We load in the training data and train using a naive bayes model.
     - Y_hat (the output) is the predicted labels of the test data passed in
     
-    - An example of this is within the test_script_nb.m script. To run this, simply just run it.
+    - An example of this is within the scripts/test_script_nb.m script. To run this, simply just run it.
     - This script randomizes the train set to come up with a test set and a train set,
     - It then trains the model and predicts for the test set and prints the score
 
@@ -34,7 +23,7 @@ Models:
     - We load in the training data and train using a logistic model with cost optimization.
     - Y_hat (the output) is the predicted labels of the test data passed in
 
-    - An example of this is within the test_script.m script. To run this, simply just run it.
+    - An example of this is within the scripts/test_script.m script. To run this, simply just run it.
     - This script randomizes the train set to come up with a test set and a train set,
     - It then trains the model and predicts for the test set and prints the score
 
@@ -46,7 +35,7 @@ Models:
     - We load in the training data and train using a K-Nearest Neighbors model with K = 15.
     - Y_hat (the output) is the predicted labels of the test data passed in
 
-    - An example of this is within the test_script_knn.m script. To run this, simply just run it.
+    - An example of this is within the scripts/test_script_knn.m script. To run this, simply just run it.
     - This script randomizes the train set to come up with a test set and a train set,
     - It then trains the model and predicts for the test set and prints the score
 
